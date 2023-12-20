@@ -91,7 +91,7 @@ GLFWwindow *OpenWindow() {
     glfwGetMonitorWorkarea(monitor, &x, &y, &w, &h);
 
     glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE);
-    GLFWwindow *window = glfwCreateWindow(w, h, "c-cnc viewer", nullptr, nullptr);
+    GLFWwindow *window = glfwCreateWindow(w, h, "example_1", nullptr, nullptr);
 
     if (window == nullptr) {
         return nullptr;
@@ -99,12 +99,12 @@ GLFWwindow *OpenWindow() {
 
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);// Enable vsync
+    glEnable(GL_MULTISAMPLE);
 
     if (glewInit() != GLEW_OK) {
         return nullptr;
     }
 
-    glEnable(GL_MULTISAMPLE);
     glfwShowWindow(window);
 
     return window;

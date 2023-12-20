@@ -58,6 +58,22 @@ add_library(
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/thirdparty/implot/implot_items.cpp
 )
 
+target_link_libraries(
+    imgui
+
+    glfw
+    ${OPENGL_LIBRARIES}
+    ${GLEW_LIBRARIES}
+)
+target_link_libraries(
+    implot
+
+    imgui
+    glfw
+    ${OPENGL_LIBRARIES}
+    ${GLEW_LIBRARIES}
+)
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
 add_executable(
@@ -70,7 +86,16 @@ target_link_libraries(
 
     imgui
     implot
-    glfw
-    ${OPENGL_LIBRARIES}
-    ${GLEW_LIBRARIES}
+)
+
+add_executable(
+    ${PROJECT_NAME}_example_app
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/examples/example_app.cpp
+)
+target_link_libraries(
+    ${PROJECT_NAME}_example_app
+
+    imgui
+    implot
 )

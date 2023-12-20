@@ -36,4 +36,5 @@ build/
 bin/
 
 # VS Code
+imgui.ini/
 .vscode/
