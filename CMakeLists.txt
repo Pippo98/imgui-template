@@ -23,19 +23,19 @@ endif ()
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
-    
+
     # thirdparty
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/thirdparty/imgui
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/thirdparty/imgui/misc/cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/thirdparty/imgui/backends
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/thirdparty/implot
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/misc/cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/backends
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/implot
 
     # GLEW
     ${GLEW_INCLUDE_DIRS}
 )
 
-FILE(GLOB imgui_srcs ${CMAKE_CURRENT_SOURCE_DIR}/lib/thirdparty/imgui/*)
-FILE(GLOB implot_srcs ${CMAKE_CURRENT_SOURCE_DIR}/lib/thirdparty/implot/*)
+FILE(GLOB imgui_srcs ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/*)
+FILE(GLOB implot_srcs ${CMAKE_CURRENT_SOURCE_DIR}/external/implot/*)
 
 add_library(
     imgui
@@ -43,23 +43,24 @@ add_library(
 
     # GUI
     ${imgui_srcs}
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/thirdparty/imgui/backends/imgui_impl_glfw.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/thirdparty/imgui/backends/imgui_impl_opengl3.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/thirdparty/imgui/misc/cpp/imgui_stdlib.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/backends/imgui_impl_glfw.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/backends/imgui_impl_opengl3.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/misc/cpp/imgui_stdlib.cpp
 )
 
 add_library(
     implot
     STATIC
-    
+
     # PLOT
     ${implot_srcs}
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/thirdparty/implot/implot.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/thirdparty/implot/implot_items.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/implot/implot.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/implot/implot_items.cpp
 )
 
 target_link_libraries(
     imgui
+    PUBLIC
 
     glfw
     ${OPENGL_LIBRARIES}
@@ -67,11 +68,9 @@ target_link_libraries(
 )
 target_link_libraries(
     implot
+    PUBLIC
 
     imgui
-    glfw
-    ${OPENGL_LIBRARIES}
-    ${GLEW_LIBRARIES}
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
