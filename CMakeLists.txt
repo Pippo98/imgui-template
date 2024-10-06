@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+set(DIR ${CMAKE_CURRENT_LIST_DIR})
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-pthread -O3 -std=c++2a")
 add_compile_definitions("ImDrawIdx=unsigned int")
 add_compile_definitions(IMGUI_DEFINE_MATH_OPERATORS)
@@ -22,79 +23,17 @@ if (NOT GLEW_LIBRARIES)
 endif ()
 
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${DIR}
 
     # thirdparty
-    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui
-    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/misc/cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/backends
-    ${CMAKE_CURRENT_SOURCE_DIR}/external/implot
+    ${DIR}/external/imgui
+    ${DIR}/external/imgui/misc/cpp
+    ${DIR}/external/imgui/backends
+    ${DIR}/external/implot
 
     # GLEW
     ${GLEW_INCLUDE_DIRS}
 )
 
-FILE(GLOB imgui_srcs ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/*)
-FILE(GLOB implot_srcs ${CMAKE_CURRENT_SOURCE_DIR}/external/implot/*)
-
-add_library(
-    imgui
-    STATIC
-
-    # GUI
-    ${imgui_srcs}
-    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/backends/imgui_impl_glfw.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/backends/imgui_impl_opengl3.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/misc/cpp/imgui_stdlib.cpp
-)
-
-add_library(
-    implot
-    STATIC
-
-    # PLOT
-    ${implot_srcs}
-    ${CMAKE_CURRENT_SOURCE_DIR}/external/implot/implot.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/external/implot/implot_items.cpp
-)
-
-target_link_libraries(
-    imgui
-    PUBLIC
-
-    glfw
-    ${OPENGL_LIBRARIES}
-    ${GLEW_LIBRARIES}
-)
-target_link_libraries(
-    implot
-    PUBLIC
-
-    imgui
-)
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
-
-add_executable(
-    ${PROJECT_NAME}_example_1
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/examples/example_1.cpp
-)
-target_link_libraries(
-    ${PROJECT_NAME}_example_1
-
-    imgui
-    implot
-)
-
-add_executable(
-    ${PROJECT_NAME}_example_app
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/examples/example_app.cpp
-)
-target_link_libraries(
-    ${PROJECT_NAME}_example_app
-
-    imgui
-    implot
-)
+add_subdirectory(${DIR}/external)
+add_subdirectory(${DIR}/core)
