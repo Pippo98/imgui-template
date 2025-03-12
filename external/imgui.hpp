@@ -8,4 +8,7 @@
 #include "imgui/backends/imgui_impl_opengl3.h"
 #include "implot/implot.h"
 #include "implot/implot_internal.h"
+#include "implot3d/implot3d.h"
+#include "implot3d/implot3d_internal.h"
+
 // clang-format on

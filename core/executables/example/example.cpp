@@ -1,5 +1,6 @@
 #include "example.hpp"
 #include "app_utils/app.hpp"
+#include "imgui.hpp"
 #include <cstdlib>
 
 class ExampleApp : public App {
@@ -11,6 +12,10 @@ protected:
       glfwSetWindowShouldClose(window, true);
     }
     ImGui::End();
+
+    ImGui::ShowDemoWindow();
+    ImPlot::ShowDemoWindow();
+    ImPlot3D::ShowDemoWindow();
   }
 };
 

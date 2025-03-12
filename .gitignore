@@ -33,8 +33,16 @@
 
 # Build directories
 build/
+debug/
+release/
 bin/
+lib/
+
+##
+.cache/
+.last_compilation_mode
+compile_commands.json
 
 # VS Code
-imgui.ini/
+imgui.ini
 .vscode/

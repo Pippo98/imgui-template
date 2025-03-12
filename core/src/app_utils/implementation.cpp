@@ -1,4 +1,5 @@
 #include "app.hpp"
+#include "implot3d/implot3d.h"
 #include "render.hpp"
 #include "window.hpp"
 
@@ -119,10 +120,11 @@ void InitImgui(GLFWwindow *window) {
   ImGuiContext *ctx = ImGui::CreateContext();
   ImGui::SetCurrentContext(ctx);
 
-  ImGuiStyle &style = ImGui::GetStyle();
+  /*ImGuiStyle &style = ImGui::GetStyle();*/
   ImPlot::CreateContext();
+  ImPlot3D::CreateContext();
 
-  float scaling_x, scaling_y, app_scaling;
+  float scaling_x, scaling_y;
   glfwGetWindowContentScale(window, &scaling_x, &scaling_y);
 
   // Setup Platform/Renderer backends
